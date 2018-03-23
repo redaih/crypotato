@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="shortcut icon" type="image/x-icon" href="imgs/potato.png"/>
+		<title>crypotato</title> 
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		
+		<!-- START brand logo "potato" and name plus lang switch -->
+		
+		<nav class="navbar navbar-expand-sm navbar-light bg-light">
+			<a class="navbar-brand mr-auto" href="#">
+				<img src="imgs/potato.png" width="30" height="30" class="d-inline-block align-top" alt="">
+				crypotato
+			</a>
+			<button class="navbar-toggler tg-btn" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			
+				<div class="my-2 my-sm-0 ml-sm-auto mr-sm-1 pr-sm-1 btn-group">status</div>
+				<div class=" my-2 my-sm-0  btn-group btn-group-toggle" data-toggle="buttons">
+					<label class="btn btn-secondary active">
+						<input type="radio" name="options" id="option1" autocomplete="off" checked> EN
+					</label>
+					<label class="btn btn-secondary">
+					<input type="radio" name="options" id="option2" autocomplete="off"> AR
+					</label>
+				</div>
+
+			</div>
+				
+		</nav>
+		<!-- END brand logo "potato" and name plus lang switch -->
+		<!-- START main body -->
+		<div class="container-fluid">
+			<div class="row">
+				
+                <!-- START chart area -->
+				<div class="col-lg-8 col-md-12 bg-warning">
+					<div class="col">
+						<div>
+							<div class=" date-tog my-2 my-sm-0  btn-group btn-group-toggle">
+								<button class="btn btn-secondary" value="historical_info_1minute_url" onclick="historical_url_selrctor(this.value,'60')">1h</button> 
+								<button class="btn btn-secondary" value="historical_info_1minute_url" onclick="historical_url_selrctor(this.value,'1440')">1d</button> 
+								<button class="btn btn-secondary"value="historical_info_1minute_url" onclick="historical_url_selrctor(this.value,'10080')">1w</button> 
+								<button class="btn btn-secondary"value="historical_info_1hour_url" onclick="historical_url_selrctor(this.value,'744')">1m</button> 
+								<button class="btn btn-secondary"value="historical_info_1day_url" onclick="historical_url_selrctor(this.value,'366')">1y</button> 
+								<button id="custom_time_stamp_collapse" class="btn btn-secondary">custome</button>
+								<div id="custom_time_stamp">
+									<input id="from_timestamp" onfocusout="custome_timestamp_validation(this.value,#to_timestamp.value)" type="text" class="custom_timestamp"  placeholder="from:mm/dd/yyyy">
+									<input id="to_timestamp" onfocusout="custome_timestamp_validation(#from_timestamp.value,this.value)" type="text" class="custom_timestamp" placeholder="from:mm/dd/yyyy">
+								</div>
+							</div> 
+						</div>
+						<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+						<span id="timeToRender"></span>
+					</div>
+				</div>
+                <!-- END chart area -->
+				
+				<!-- START COMP CURR LIVE PRICE EXCHANGE -->		
+				<div class="col-4">
+                    <!-- START COMP CURR -->
+					<div class="row">
+						<div class="col-lg-3 col-md-6">
+							<select class="form-control"onchange="comp(this.value)">
+								<option value="BTC">BTC</option>
+								<option value="ETH">ETH</option>
+								<option value="XRP">XRP</option>
+							</select>							
+						</div>
+						<div class="col-lg-3 col-md-6">
+							<select class="form-control" onchange="curr(this.value)">
+								<option value="USD">USD</option>
+								<option value="EUR">EUR</option>
+								<option value="GBP">GBP</option>
+								<option value="JPY">JPY</option>
+								<option value="CNY">CNY</option>
+							</select>
+						</div>	
+					</div>
+                    <!--  END COMP CURR --> 						
+					<!--  START LIVE PRICE -->
+					<div class="row main-margin-top price_main">
+						<div class="col-12 mar">
+							<h2>Now: <span id="price"></span></h2>
+						</div>
+						<div class="col-12">
+							<div class="row" >
+								<div class="col-6">
+									
+									<p class="price-sm lead">today's open:</p>
+									<p class="price-sm price-api lead" id="price-open">8,196.02</p>
+								
+									<p class="price-sm lead">today's high:</p>
+									<p class="price-sm price-api lead" id="price-high">8,196.02</p>
+								
+									<p class="price-sm lead">today's low:</p>
+									<p class="price-sm price-api lead" id="price-low">8,196.02</p>
+								</div>
+								<div class="col-6">
+								
+									<p class="price-sm lead">change:</p>
+									<p class="price-sm lead price-api" id="price-change">8,196.02</p>
+											
+									<p class="price-sm lead">market cap:</p>	
+									<p class="price-sm lead price-api" id="price-market-cap">8,196.02</p>
+								
+								
+									<p class="price-sm lead">supply:</p>
+									<p class="price-sm lead price-api" id="price-supply">8,196.02</p>	
+								</div>	
+							</div>
+							<div></div>
+						</div>
+					</div>
+                    <!-- END LIVE PRICE -->
+					<!-- END LIVE EXCHANGE -->
+					<div class="row main-margin-top">
+						<h5 class="col">TOP EXCHANGES:</h5>
+						<div class="col-12">
+						
+							<h4> 
+								<span class="top_exchange_1_index">1</span>:
+								<span id="exchange-top-1"></span>
+								
+							</h4>
+
+						</div>
+								
+						<div class="col-12">
+							<h4><span id="from-top-1">btc</span>/<span id="to-top-1">usd</span>: <span id="value-top-1"></span> </h4>
+						</div>
+						<div id="exchange-rest" class="col-12">
+							<div class="row">
+								<div class="col-6">
+									
+									<div class="all_exchanges"> 
+										<p class="price-sm lead">
+											<span class="top_exchange_rest_index">2</span> :
+											<span class="price-api" id="exchange-top-2"></span>
+										</p>
+										<p class="price-sm lead">
+											<span id="from-top-2"></span>/
+											<span id="to-top-2"></span>: 
+											<span class="price-api" id="value-top-2"></span>
+										</p>
+									</div>
+									
+									<div class="all_exchanges">
+										<p class="price-sm lead">
+											<span class="top_exchange_rest_index">3</span>:
+											<span class="price-api" id="exchange-top-3"></span>
+										</p>
+										<p class="price-sm lead">
+											<span id="from-top-3"></span>/
+											<span id="to-top-3"></span>: 
+											<span class="price-api" id="value-top-3"></span>
+										</p>
+									</div>
+								</div>
+								
+								<div class="col-6">
+									
+									<div class="all_exchanges">
+										<p class="price-sm lead">
+											<span class="top_exchange_rest_index">4</span>:
+											<span class="price-api" id="exchange-top-4"></span>
+										</p>
+										<p class="price-sm lead">
+											<span id="from-top-4"></span>/
+											<span id="to-top-4"></span>: 
+											<span class="price-api" id="value-top-4"></span>
+										</p>
+									</div>
+									
+									<div class="all_exchanges">
+										<p class="price-sm lead">
+											<span class="top_exchange_rest_index">5</span>:
+											<span class="price-api" id="exchange-top-5"></span>
+										</p>
+										<p class="price-sm lead">
+											<span id="from-top-5"></span>/
+											<span id="to-top-5"></span>:
+											<span class="price-api" id="value-top-5"></span>
+										</p>
+									</div>
+								</div>
+							</div>
+							
+						</div>	
+					</div>
+					<!-- END LIVE EXCHANGE -->
+				</div>
+				<!-- END COMP CURR LIVE PRICE EXCHANGE -->
+				
+				<!-- START NEWS -->
+				
+				<div class="col-8 ">
+					
+					<div class="col-lg-3 col-md-6">
+						<select id="filtered_sources" class="form-control"onchange="news_filter_filtered_depupilator(this.value)">
+							
+						</select>							
+					</div>
+					<div id="news_wrapper">
+						<div class="container">
+							<div class="row">
+								<div>
+									<h5 class="col-12 word-wrap news-title">Title </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="news_img">
+										<img src="" class="img-fluid">
+									</div>
+								</div>
+							<div class="col-10">
+								<p class="col-12 lead news-content ">CONTENT</p>
+							</div>	
+
+							</div>
+							<div class="row">
+								<div class="col-12 ">
+									<div class="btn news-date">
+										DATE
+									</div>|
+									<div class="btn news-date">
+										source
+									</div>
+									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
+								</div>						
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div>
+									<h5 class="col-12 word-wrap news-title">Title </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="news_img">
+										<img src="" class="img-fluid">
+									</div>
+								</div>
+							<div class="col-10">
+								<p class="col-12 lead news-content ">CONTENT</p>
+							</div>	
+
+							</div>
+							<div class="row">
+								<div class="col-12 ">
+									<div class="btn news-date">
+										DATE
+									</div>|
+									<div class="btn news-date">
+										source
+									</div>
+									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
+								</div>						
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div>
+									<h5 class="col-12 word-wrap news-title">Title </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="news_img">
+										<img src="" class="img-fluid">
+									</div>
+								</div>
+							<div class="col-10">
+								<p class="col-12 lead news-content ">CONTENT</p>
+							</div>	
+
+							</div>
+							<div class="row">
+								<div class="col-12 ">
+									<div class="btn news-date">
+										DATE
+									</div>|
+									<div class="btn news-date">
+										source
+									</div>
+									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
+								</div>						
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div>
+									<h5 class="col-12 word-wrap news-title">Title </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="news_img">
+										<img src="" class="img-fluid">
+									</div>
+								</div>
+							<div class="col-10">
+								<p class="col-12 lead news-content ">CONTENT</p>
+							</div>	
+
+							</div>
+							<div class="row">
+								<div class="col-12 ">
+									<div class="btn news-date">
+										DATE
+									</div>|
+									<div class="btn news-date">
+										source
+									</div>
+									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
+								</div>						
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div>
+									<h5 class="col-12 word-wrap news-title">Title </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="news_img">
+										<img src="" class="img-fluid">
+									</div>
+								</div>
+							<div class="col-10">
+								<p class="col-12 lead news-content ">CONTENT</p>
+							</div>	
+
+							</div>
+							<div class="row">
+								<div class="col-12 ">
+									<div class="btn news-date">
+										DATE
+									</div>|
+									<div class="btn news-date">
+										source
+									</div>
+									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
+								</div>						
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div>
+									<h5 class="col-12 word-wrap news-title">Title </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="news_img">
+										<img src="" class="img-fluid">
+									</div>
+								</div>
+							<div class="col-10">
+								<p class="col-12 lead news-content ">CONTENT</p>
+							</div>	
+
+							</div>
+							<div class="row">
+								<div class="col-12 ">
+									<div class="btn news-date">
+										DATE
+									</div>|
+									<div class="btn news-date">
+										source
+									</div>
+									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
+								</div>						
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div>
+									<h5 class="col-12 word-wrap news-title">Title </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="news_img">
+										<img src="" class="img-fluid">
+									</div>
+								</div>
+							<div class="col-10">
+								<p class="col-12 lead news-content ">CONTENT</p>
+							</div>	
+
+							</div>
+							<div class="row">
+								<div class="col-12 ">
+									<div class="btn news-date">
+										DATE
+									</div>|
+									<div class="btn news-date">
+										source
+									</div>
+									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
+								</div>						
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div>
+									<h5 class="col-12 word-wrap news-title">Title </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="news_img">
+										<img src="" class="img-fluid">
+									</div>
+								</div>
+							<div class="col-10">
+								<p class="col-12 lead news-content ">CONTENT</p>
+							</div>	
+
+							</div>
+							<div class="row">
+								<div class="col-12 ">
+									<div class="btn news-date">
+										DATE
+									</div>|
+									<div class="btn news-date">
+										source
+									</div>
+									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
+								</div>						
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div>
+									<h5 class="col-12 word-wrap news-title">Title </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="news_img">
+										<img src="" class="img-fluid">
+									</div>
+								</div>
+							<div class="col-10">
+								<p class="col-12 lead news-content ">CONTENT</p>
+							</div>	
+
+							</div>
+							<div class="row">
+								<div class="col-12 ">
+									<div class="btn news-date">
+										DATE
+									</div>|
+									<div class="btn news-date">
+										source
+									</div>
+									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
+								</div>						
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div>
+									<h5 class="col-12 word-wrap news-title">Title </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="news_img">
+										<img src="" class="img-fluid">
+									</div>
+								</div>
+							<div class="col-10">
+								<p class="col-12 lead news-content ">CONTENT</p>
+							</div>	
+
+							</div>
+							<div class="row">
+								<div class="col-12 ">
+									<div class="btn news-date">
+										DATE
+									</div>|
+									<div class="btn news-date">
+										source
+									</div>
+									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
+								</div>						
+							</div>
+						</div>
+					</div>		
+				</div>
+				<!-- END NEWS -->
+			</div>
+		</div>
+	    <!-- END main body -->	
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<script src="scripts/jquery.min.js"></script>
+		<script src="scripts/popper.min.js"></script>
+		<script src="scripts/bootstrap.js"></script>
+		<script src="scripts/jquery.canvasjs.min.js"></script>
+		<script src="scripts/moment.js"></script>
+		<script src="scripts/main.js"></script>
+	</body>
+</html>
