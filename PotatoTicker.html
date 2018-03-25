@@ -19,17 +19,15 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			
-				<div class="my-2 my-sm-0 ml-sm-auto mr-sm-1 pr-sm-1 btn-group">status</div>
-				<div class=" my-2 my-sm-0  btn-group btn-group-toggle" data-toggle="buttons">
-					<label class="btn btn-secondary active">
-						<input type="radio" name="options" id="option1" autocomplete="off" checked> EN
-					</label>
-					<label class="btn btn-secondary">
-					<input type="radio" name="options" id="option2" autocomplete="off"> AR
-					</label>
-				</div>
-
+				<button type="button" class="btn ml-auto mr-1" data-toggle="modal" data-target="#exampleModalCenter">
+					stats
+				</button>
+				
+					
+				<select id="translate" class="custom-select max_width_10">
+				  <option value="EN" selected>EN</option>
+				  <option value="AR">AR</option>
+				</select>
 			</div>
 				
 		</nav>
@@ -43,16 +41,13 @@
 					<div class="col">
 						<div>
 							<div class=" date-tog my-2 my-sm-0  btn-group btn-group-toggle">
-								<button class="btn btn-secondary" value="historical_info_1minute_url" onclick="historical_url_selrctor(this.value,'60')">1h</button> 
+								<button class="btn btn-secondary lang" value="historical_info_1minute_url" onclick="historical_url_selrctor(this.value,'60')" key="1h">1h</button> 
 								<button class="btn btn-secondary" value="historical_info_1minute_url" onclick="historical_url_selrctor(this.value,'1440')">1d</button> 
 								<button class="btn btn-secondary"value="historical_info_1minute_url" onclick="historical_url_selrctor(this.value,'10080')">1w</button> 
 								<button class="btn btn-secondary"value="historical_info_1hour_url" onclick="historical_url_selrctor(this.value,'744')">1m</button> 
 								<button class="btn btn-secondary"value="historical_info_1day_url" onclick="historical_url_selrctor(this.value,'366')">1y</button> 
-								<button id="custom_time_stamp_collapse" class="btn btn-secondary">custome</button>
-								<div id="custom_time_stamp">
-									<input id="from_timestamp" onfocusout="custome_timestamp_validation(this.value,#to_timestamp.value)" type="text" class="custom_timestamp"  placeholder="from:mm/dd/yyyy">
-									<input id="to_timestamp" onfocusout="custome_timestamp_validation(#from_timestamp.value,this.value)" type="text" class="custom_timestamp" placeholder="from:mm/dd/yyyy">
-								</div>
+								
+
 							</div> 
 						</div>
 						<div id="chartContainer" style="height: 300px; width: 100%;"></div>
@@ -62,17 +57,18 @@
                 <!-- END chart area -->
 				
 				<!-- START COMP CURR LIVE PRICE EXCHANGE -->		
-				<div class="col-4">
+				
+				<div class="col-12 col-lg-4">
                     <!-- START COMP CURR -->
 					<div class="row">
-						<div class="col-lg-3 col-md-6">
+						<div class="col-lg-3 col-md-6 col-sm-12">
 							<select class="form-control"onchange="comp(this.value)">
 								<option value="BTC">BTC</option>
 								<option value="ETH">ETH</option>
 								<option value="XRP">XRP</option>
 							</select>							
 						</div>
-						<div class="col-lg-3 col-md-6">
+						<div class="col-lg-3 col-md-6 col-sm-12">
 							<select class="form-control" onchange="curr(this.value)">
 								<option value="USD">USD</option>
 								<option value="EUR">EUR</option>
@@ -90,27 +86,27 @@
 						</div>
 						<div class="col-12">
 							<div class="row" >
-								<div class="col-6">
+								<div class="col-md-6 col-12">
 									
-									<p class="price-sm lead">today's open:</p>
+									<p class="price-sm lead"><span class="t">today's open</span>:</p>
 									<p class="price-sm price-api lead" id="price-open">8,196.02</p>
 								
-									<p class="price-sm lead">today's high:</p>
+									<p class="price-sm lead"><span class="t">today's high</span>:</p>
 									<p class="price-sm price-api lead" id="price-high">8,196.02</p>
 								
-									<p class="price-sm lead">today's low:</p>
+									<p class="price-sm lead"><span class="t">today's low</span>:</p>
 									<p class="price-sm price-api lead" id="price-low">8,196.02</p>
 								</div>
-								<div class="col-6">
+								<div class="col-md-6 col-12">
 								
-									<p class="price-sm lead">change:</p>
+									<p class="price-sm lead"><span class="t">change</span>:</p>
 									<p class="price-sm lead price-api" id="price-change">8,196.02</p>
 											
-									<p class="price-sm lead">market cap:</p>	
+									<p class="price-sm lead "><span class="t">market cap</span>:</p>	
 									<p class="price-sm lead price-api" id="price-market-cap">8,196.02</p>
 								
 								
-									<p class="price-sm lead">supply:</p>
+									<p class="price-sm lead"><span class="t">supply</span>:</p>
 									<p class="price-sm lead price-api" id="price-supply">8,196.02</p>	
 								</div>	
 							</div>
@@ -136,7 +132,7 @@
 						</div>
 						<div id="exchange-rest" class="col-12">
 							<div class="row">
-								<div class="col-6">
+								<div class="col-12 col-lg-6">
 									
 									<div class="all_exchanges"> 
 										<p class="price-sm lead">
@@ -163,7 +159,7 @@
 									</div>
 								</div>
 								
-								<div class="col-6">
+								<div class="col-12 col-lg-6">
 									
 									<div class="all_exchanges">
 										<p class="price-sm lead">
@@ -198,8 +194,8 @@
 				<!-- END COMP CURR LIVE PRICE EXCHANGE -->
 				
 				<!-- START NEWS -->
-				
-				<div class="col-8 ">
+				<div class="row">
+				<div class="col-12 col-md-8 ">
 					
 					<div class="col-lg-3 col-md-6">
 						<select id="filtered_sources" class="form-control"onchange="news_filter_filtered_depupilator(this.value)">
@@ -214,12 +210,132 @@
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-2">
+								<div class="d-none d-md-block col-md-2">
 									<div class="news_img">
 										<img src="" class="img-fluid">
 									</div>
 								</div>
-							<div class="col-10">
+							<div class="col-12 col-lg-10">
+								<p class="col-12 lead news-content ">CONTENT</p>
+							</div>	
+
+							</div>
+							<div class="row">
+								<div class="col-12 ">
+									<div class="btn news-date">
+										DATE
+									</div>|
+									<div class="btn news-date">
+										source
+									</div>
+									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
+								</div>						
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div>
+									<h5 class="col-12 word-wrap news-title">Title </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="d-none d-md-block col-2">
+									<div class="news_img">
+										<img src="" class="img-fluid">
+									</div>
+								</div>
+							<div class="col-12 col-lg-10">
+								<p class="col-12 lead news-content ">CONTENT</p>
+							</div>	
+
+							</div>
+							<div class="row">
+								<div class="col-12 ">
+									<div class="btn news-date">
+										DATE
+									</div>|
+									<div class="btn news-date">
+										source
+									</div>
+									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
+								</div>						
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div>
+									<h5 class="col-12 word-wrap news-title">Title </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="d-none d-md-block col-2">
+									<div class="news_img">
+										<img src="" class="img-fluid">
+									</div>
+								</div>
+							<div class="col-12 col-lg-10">
+								<p class="col-12 lead news-content ">CONTENT</p>
+							</div>	
+
+							</div>
+							<div class="row">
+								<div class="col-12 ">
+									<div class="btn news-date">
+										DATE
+									</div>|
+									<div class="btn news-date">
+										source
+									</div>
+									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
+								</div>						
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div>
+									<h5 class="col-12 word-wrap news-title">Title </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="d-none d-md-block col-2">
+									<div class="news_img">
+										<img src="" class="img-fluid">
+									</div>
+								</div>
+							<div class="col-12 col-lg-10">
+								<p class="col-12 lead news-content ">CONTENT</p>
+							</div>	
+
+							</div>
+							<div class="row">
+								<div class="col-12 ">
+									<div class="btn news-date">
+										DATE
+									</div>|
+									<div class="btn news-date">
+										source
+									</div>
+									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
+								</div>						
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div>
+									<h5 class="col-12 word-wrap news-title">Title </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="d-none d-md-block col-2">
+									<div class="news_img">
+										<img src="" class="img-fluid">
+									</div>
+								</div>
+							<div class="col-12 col-lg-10">
 								<p class="col-12 lead news-content ">CONTENT</p>
 							</div>	
 
@@ -245,11 +361,11 @@
 							</div>
 							<div class="row">
 								<div class="col-2">
-									<div class="news_img">
+									<div class="d-none d-md-block news_img">
 										<img src="" class="img-fluid">
 									</div>
 								</div>
-							<div class="col-10">
+							<div class="col-12 col-lg-10">
 								<p class="col-12 lead news-content ">CONTENT</p>
 							</div>	
 
@@ -275,11 +391,11 @@
 							</div>
 							<div class="row">
 								<div class="col-2">
-									<div class="news_img">
+									<div class="d-none d-md-block news_img">
 										<img src="" class="img-fluid">
 									</div>
 								</div>
-							<div class="col-10">
+							<div class="col-12 col-lg-10">
 								<p class="col-12 lead news-content ">CONTENT</p>
 							</div>	
 
@@ -305,11 +421,41 @@
 							</div>
 							<div class="row">
 								<div class="col-2">
+									<div class="d-none d-md-block news_img">
+										<img src="" class="img-fluid">
+									</div>
+								</div>
+							<div class="col-12 col-lg-10">
+								<p class="col-12 lead news-content ">CONTENT</p>
+							</div>	
+
+							</div>
+							<div class="row">
+								<div class="col-12 ">
+									<div class="btn news-date">
+										DATE
+									</div>|
+									<div class="btn news-date">
+										source
+									</div>
+									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
+								</div>						
+							</div>
+						</div>
+
+						<div class="container">
+							<div class="row">
+								<div>
+									<h5 class="col-12 word-wrap news-title">Title </h5>
+								</div>
+							</div>
+							<div class="row">
+								<div class="d-none d-md-block col-2">
 									<div class="news_img">
 										<img src="" class="img-fluid">
 									</div>
 								</div>
-							<div class="col-10">
+							<div class="col-12 col-lg-10">
 								<p class="col-12 lead news-content ">CONTENT</p>
 							</div>	
 
@@ -335,161 +481,11 @@
 							</div>
 							<div class="row">
 								<div class="col-2">
-									<div class="news_img">
+									<div class="d-none d-md-block news_img">
 										<img src="" class="img-fluid">
 									</div>
 								</div>
-							<div class="col-10">
-								<p class="col-12 lead news-content ">CONTENT</p>
-							</div>	
-
-							</div>
-							<div class="row">
-								<div class="col-12 ">
-									<div class="btn news-date">
-										DATE
-									</div>|
-									<div class="btn news-date">
-										source
-									</div>
-									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
-								</div>						
-							</div>
-						</div>
-
-						<div class="container">
-							<div class="row">
-								<div>
-									<h5 class="col-12 word-wrap news-title">Title </h5>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-2">
-									<div class="news_img">
-										<img src="" class="img-fluid">
-									</div>
-								</div>
-							<div class="col-10">
-								<p class="col-12 lead news-content ">CONTENT</p>
-							</div>	
-
-							</div>
-							<div class="row">
-								<div class="col-12 ">
-									<div class="btn news-date">
-										DATE
-									</div>|
-									<div class="btn news-date">
-										source
-									</div>
-									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
-								</div>						
-							</div>
-						</div>
-
-						<div class="container">
-							<div class="row">
-								<div>
-									<h5 class="col-12 word-wrap news-title">Title </h5>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-2">
-									<div class="news_img">
-										<img src="" class="img-fluid">
-									</div>
-								</div>
-							<div class="col-10">
-								<p class="col-12 lead news-content ">CONTENT</p>
-							</div>	
-
-							</div>
-							<div class="row">
-								<div class="col-12 ">
-									<div class="btn news-date">
-										DATE
-									</div>|
-									<div class="btn news-date">
-										source
-									</div>
-									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
-								</div>						
-							</div>
-						</div>
-
-						<div class="container">
-							<div class="row">
-								<div>
-									<h5 class="col-12 word-wrap news-title">Title </h5>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-2">
-									<div class="news_img">
-										<img src="" class="img-fluid">
-									</div>
-								</div>
-							<div class="col-10">
-								<p class="col-12 lead news-content ">CONTENT</p>
-							</div>	
-
-							</div>
-							<div class="row">
-								<div class="col-12 ">
-									<div class="btn news-date">
-										DATE
-									</div>|
-									<div class="btn news-date">
-										source
-									</div>
-									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
-								</div>						
-							</div>
-						</div>
-
-						<div class="container">
-							<div class="row">
-								<div>
-									<h5 class="col-12 word-wrap news-title">Title </h5>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-2">
-									<div class="news_img">
-										<img src="" class="img-fluid">
-									</div>
-								</div>
-							<div class="col-10">
-								<p class="col-12 lead news-content ">CONTENT</p>
-							</div>	
-
-							</div>
-							<div class="row">
-								<div class="col-12 ">
-									<div class="btn news-date">
-										DATE
-									</div>|
-									<div class="btn news-date">
-										source
-									</div>
-									<div class="news-date btn" id="hhh" onclick="news_filter_fun(this.id)" >not intersted in source</div>
-								</div>						
-							</div>
-						</div>
-
-						<div class="container">
-							<div class="row">
-								<div>
-									<h5 class="col-12 word-wrap news-title">Title </h5>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-2">
-									<div class="news_img">
-										<img src="" class="img-fluid">
-									</div>
-								</div>
-							<div class="col-10">
+							<div class="col-12 col-lg-10">
 								<p class="col-12 lead news-content ">CONTENT</p>
 							</div>	
 
@@ -508,6 +504,7 @@
 						</div>
 					</div>		
 				</div>
+				</div>
 				<!-- END NEWS -->
 			</div>
 		</div>
@@ -515,7 +512,94 @@
 
 		
 		
+		<!-- Button trigger modal -->
+
 		
+
+<!-- stats Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">stats</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+		<div class="modal-body">
+			<p class="dropdown-item">session length:<span id="session_length"></span></p>
+			<p class="dropdown-item">successful requests:<span id="successful_requests"></span></p>
+			<p class="dropdown-item">api errors:<span id="api_errors"></span></p>
+			<p class="dropdown-item">ip address limit:<span id="ip adress_limit"></span></p>
+			<ul>
+				<li>
+					<p>Hours</p>
+					<ul class="no_mar">
+						<li>histo : made:<span id="histo_hours_made"></span></li>
+						<li>price : made:<span id="price_hours_made"></span></li>
+						<li>news : made:<span id="news_hours_made"></span></li>
+						<li>strict : made:<span id="strict_hours_made"></span></li>
+						
+					</ul>
+					<ul class="no_mar">
+						<li>histo : remain:<span id="histo_hours_remain"></span></li>
+						<li>price : remain:<span id="price_hours_remain"></span></li>
+						<li>news : remain:<span id="news_hours_remain"></span></li>
+						<li>strict : remain:<span id="strict_hours_remain"></span></li>
+						
+					</ul>					
+				</li>
+				<li>
+					<p>Minuts</p>
+					<ul class="no_mar">
+						<li>histo : made:<span id="histo_minuts_made"></span></li>
+						<li>price : made:<span id="price_minuts_made"></span></li>
+						<li>news : made:<span id="news_minuts_made"></span></li>
+						<li>strict : made:<span id="strict_minuts_made"></span></li>
+						
+					</ul>
+					<ul class="no_mar">
+						<li>histo : remain:<span id="histo_minuts_remain"></span></li>
+						<li>price : remain:<span id="price_minuts_remain"></span></li>
+						<li>news : remain:<span id="news_minuts_remain"></span></li>
+						<li>strict : remain:<span id="strict_minuts_remain"></span></li>
+						
+					</ul>					
+				</li>
+				<li>
+					<p>Seconds</p>
+					<ul class="no_mar">
+						<li>histo : made:<span id="histo_seconds_made"></span></li>
+						<li>price : made:<span id="price_seconds_made"></span></li>
+						<li>news : made:<span id="news_seconds_made"></span></li>
+						<li>strict : made:<span id="strict_seconds_made"></span></li>
+						
+					</ul>
+					<ul class="no_mar">
+						<li>histo : remain:<span id="histo_seconds_remain"></span></li>
+						<li>price : remain:<span id="price_seconds_remain"></span></li>
+						<li>news : remain:<span id="news_seconds_remain"></span></li>
+						<li>strict : remain:<span id="strict_seconds_remain"></span></li>
+						
+					</ul>					
+				</li>
+			</ul>
+			<p class="dropdown-item">latest api calls</p>
+			<ol id="latest_api_call_id">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ol>
+		</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
 		
 		
 		
