@@ -3,7 +3,8 @@ var com="BTC";
 var cur="USD";
 var from_t;
 var to_t;
-
+/*
+ multilingual part not active yet ..
 var lang_ob = { 'EN':{'stats':'stats',"now":"now","today's open:":"today's open:","today's high":"today's high", "today's low":"today's low", 		
 					  "change":"change","market cap":"market cap","supply":"supply","top exchanges":"TOP EXCHANGES","filtred sources":"filtered sources","1h":"1h","1d":"1d","1w":"1w","1m":"1m","1y":"1y"},
 			   'AR':{'stats':'احصائيات',
@@ -22,7 +23,7 @@ var lang_ob = { 'EN':{'stats':'stats',"now":"now","today's open:":"today's open:
 					 "1m":"شهر",
 					 "1y":"سنة"}
 			  };
-
+*/
 var cur_symbol;
 var live_price_url="https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC,ETH,XRP&tsyms=USD,EUR,GBP,JPY,CNY";
 var top_exchange_url = "https://min-api.cryptocompare.com/data/top/exchanges?fsym="+ com + "&tsym=" + cur;
@@ -39,6 +40,17 @@ var status;
 var status_api=0;
 var status_apireq = 0;
 var status_eror = 0;
+
+if (typeof(Storage) !== "undefined") {
+    localStorage.setItem("top_exchange_function", "");
+	localStorage.setItem("news", "");
+	localStorage.setItem("top_exchange_function", "");
+} else {
+   alert("sorry, your broser does not support cache");
+}
+
+
+
 function historical_url_selrctor(chart_type_url,limitt){
 	limit=limitt;
 	historical_info_1day_url="https://min-api.cryptocompare.com/data/histoday?fsym=" + com + "&tsym=" + cur + "&limit=" + limit;
@@ -130,9 +142,9 @@ window.onload = function() {
 
 
 
-function top_exchange_function(url) {
-
-
+function top_exchange_function(url) { 
+	
+	
 	$.getJSON(url,function (response,status,xhr){
 		apireqs();
 		lastest_api_calls("top exchanges", status);
